@@ -29,7 +29,7 @@ class ChannelManager {
         
         await handleFormSubmission({
             formElement: this.form,
-            apiFunction: GuildAPI.createChannel,
+            apiFunction: API.channel.create,
             errorContainerId: 'channel-error-container',
             validateForm: () => $('channel-name').value.trim() !== '',
             operationName: 'channel creation',
@@ -39,7 +39,7 @@ class ChannelManager {
                 this.hideError();
                 await this.loadChannels(guildId);
                 
-                const channelsData = await GuildAPI.getChannels(guildId);
+                API.guild.getChannels(guildId)
                 if (channelsData.channels && channelsData.channels.length > 0) {
                     const newestChannel = channelsData.channels[channelsData.channels.length - 1];
                     this.handleChannelSelect(newestChannel);
@@ -51,7 +51,7 @@ class ChannelManager {
 async loadChannels(guildId) {
         this.currentGuildId = guildId;
         try {
-            const data = await GuildAPI.getChannels(guildId);
+            const data = await API.guild.getChannels(guildId);
             
             if (data.error) {
                 console.error('Error loading channels:', data.error);
@@ -235,7 +235,7 @@ if (guildId !== this.currentGuildId) {
     }
     
     try {
-        const html = await GuildAPI.fetchChannelPage(guildId, channel.channel_id);
+        const html = await API.channel.getPage(guildId, channel.channel_id);
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
         const newContent = doc.querySelector('.main-content .container');
@@ -243,7 +243,7 @@ if (guildId !== this.currentGuildId) {
     if (newContent) {
         document.querySelector('.main-content .container').innerHTML = newContent.innerHTML;
         
-        GuildAPI.processTimestamps(document.querySelector('.main-content .container'));
+        API.utils.processTimestamps(document.querySelector('.main-content .container'));
         if (window.MessageAPI) {
             window.MessageAPI.init();
             if (channel.channel_id) {

@@ -364,7 +364,7 @@ channelMenuAPI
     const currentName = channelMenuAPI.currentChannelName;
     
     try {
-        const result = await GuildAPI.editChannel(channelMenuAPI.currentChannelId, currentName, newDesc);
+        const result = await API.channel.edit(channelMenuAPI.currentChannelId, currentName, newDesc);
         if (result.status === 'success') {
             const descElement = document.getElementById('channel-info-description');
             if (descElement) {

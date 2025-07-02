@@ -13,7 +13,6 @@ const coreFiles = [
     'src/js/csrf.js', 
     'src/js/AuthAPI.js',
     'src/js/UserAPI.js',
-    'src/js/GuildAPI.js',
     'src/js/utils/navutils.js',
     'src/js/ChannelAPI.js',
     'src/js/BaseAPI.js',

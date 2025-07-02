@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
             joinBtn.disabled = true;
             
             try {
-                const result = await GuildAPI.joinByInvite(inviteCode);
+                const result = await API.invite.joinByInvite(inviteCode);
+
                 
                 if (result.error) {
                     // Show error and restore button
