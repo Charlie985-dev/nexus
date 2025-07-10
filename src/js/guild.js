@@ -165,7 +165,22 @@ if (guildID) {
 
 window.forceNavigateToGuildChannel = async (guildId, channelId = null) => {
     try {
-        await window.channelManager.loadChannels(guildId);
+        const data = await API.guild.getChannels(guildId);
+        if (data.channels) {
+            const channelsList = document.getElementById('channels-list');
+            if (channelsList) {
+                channelsList.innerHTML = '';
+                data.channels.forEach(channel => {
+                    const channelElement = document.createElement('div');
+                    channelElement.className = 'channel-item';
+                    channelElement.innerHTML = `<span class="channel-name">#${channel.name}</span>`;
+                    channelElement.addEventListener('click', () => {
+                        window.location.href = `/v/${guildId}/${channel.channel_id}`;
+                    });
+                    channelsList.appendChild(channelElement);
+                });
+            }
+        }
         
         if (channelId) {
             const channelsData = await API.guild.getChannels(guildId);
