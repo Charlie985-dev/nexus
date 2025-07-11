@@ -18,7 +18,7 @@ import (
 )
 
 const (
-	AUTH_NONE  = 0 // No authentication required
+	AUTH_NONE  = 0 // No authendtication required
 	AUTH_USER  = 1 // User authentication required
 	AUTH_ADMIN = 2 // Admin authentication required
 )
